@@ -1,0 +1,274 @@
+
+<head>
+  <title>Pyrotech Training Portal</title>
+  <style>
+p.ex1 { 
+    padding-right: 25px;
+}
+p.ex2 {
+    margin-top: 40px;
+}
+</style>
+</head>
+
+<template name="layout">
+  <div class="wrapper">
+    
+      {{> nav}}
+      {{> sidenav}}
+   
+    
+  </div>
+</template>
+
+<template name='nav'>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        {{> navBrand}}
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav top-nav">
+          {{> navItems}}
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+</template>
+
+<template name="navBrand">
+  <a class="navbar-brand" href="{{ pathFor 'home' }}"><p class='ex1'>Pyrotech Training Portal</p></a>
+</template>
+
+<template name='navItems'>
+  <li>
+  <a class="button" id="button"><!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->Toggle Menu</a>
+</li>
+  <li class="{{ activeIfTemplateIs 'articles' }}">
+    <a href="{{ pathFor 'articles'}}">New Products</a>
+  </li>
+
+  <li class="{{ activeIfTemplateIs 'about' }}">
+    <a href="{{pathFor 'about'}}">About Pyrotech</a>
+  </li>
+
+  <li>
+   <a> {{>loginButtons}}</a>
+  </li>
+
+</template>
+
+<template name="home">
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+  <h2><i class="fa fa-home"></i> {{username}}</h2>
+  <p>You are on the home screen.</p>
+</div>
+</div>
+</div>
+</div>
+</template>
+
+
+<template name = 'articles'>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+  <div class='row'>
+    <div class="col-sm-4">
+      <h2>New Products</h2>
+      <ul>
+        {{#each articleList}}
+          <li class="{{ maybeSelected }}"> <!-- Add "selected" class (if selected) -->
+          <a href="{{ pathFor 'article' }}"> {{title}} </a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-sm-8">
+      {{> fullArticle selectedArticle}}
+    </div>
+  </div>
+</div>
+</div>
+</template>
+
+<template name = 'fullArticle'>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+  <h2>{{ title }}</h2>
+  <p>{{ body }}</p>
+</div>
+</div>
+</div>
+</div>
+</template>
+
+<template name = 'sop'>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+  <h3>Standard Operating Procedure</h3>
+  
+  
+</div>
+</div>
+</div>
+</div>
+</template>
+
+<template name = 'Products'>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+  <h3>Products</h3>
+  
+</div>
+</div>
+</div>
+</div>
+</template>
+
+<template name = 'relay'>
+  <div id="page-content-wrapper">
+    <div class="image-container">
+        {{> ORimages}}
+</div>
+</div>
+</template>
+
+<template name = 'contactor'>
+  <div id="page-content-wrapper">
+  <div class="image-container">   
+        {{> CRimages}}
+</div>
+</div>
+</template>
+
+<template name="ORimages">
+
+{{#each ORimages}}
+
+  <img src ="{{img_src}}" class="responsive" alt="h"/>
+  
+
+{{/each}}
+</template>
+<template name="CRimages">
+
+{{#each CRimages}}
+
+  <img src ="{{img_src}}" class="responsive" alt="h"/>
+  
+
+{{/each}}
+</template>
+
+
+<template name = 'sidenav'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+  <div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+      <p class='ex2'> 
+        Resources</p>
+      </li>
+      <li>
+      <a href="{{ pathFor 'sop'}}">Standard Operating Procedure</a></li>
+      <div class="dropdown">
+        <button class="dropbtn"><i class="fa fa-bars"></i>{{abc}}<span class="caret"></span></button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="{{ pathFor 'relay'}}">Siemens solid-state Overload relay</a>
+          <a href="{{ pathFor 'contactor'}}">Siemens Contactor relay</a>
+        </div>
+      </div>
+
+      <!--<li><button class="dropdown-btn"><a href="#">Products<span class="caret"></span></a></button>
+      <div class="dropdown-container" style="display: none">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+     </li>-->
+
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <!--<h1>Simple Sidebar</h1>
+
+          <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the
+            page content will be pushed off canvas.</p>-->
+            {{> yield}}
+          <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+</template>
+
+
+<template name = 'about'>
+  <style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+  <!--<h2>About</h2>-->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>HISTORY</h1>
+      <h5 class="w3-padding-32">Pyrotech Group was established by four technocrats in 1976, and in the journey of over three decades we have expanded to match global vision & progressed steadily through up gradation of technology, quality and skills. Pyrotech Electronics Pvt. Ltd. Unit#2 is a ISO 9001, EMS 14001 & OHSAS 18001 company and recipient of Rajiv Gandhi National Quality Award -1999 and Jamnalal Bajaj Award for Fair Business practices-2007 and D&B Axis Bank Gaurav Award-2011. We have mastered the engineering of various products in the field of Electronics & Electrical Control Equipments. </h5>
+
+      <p class="w3-text-grey">
+Today, we are one of the leading manufacturers of Automation & Control Equipments in India and perhaps one of the largest customized Control Equipment manufacturing company in India.With the technical prowess accumulated over years of experience, we provide complete in-house engineering solutions, working together seamlessly to handle your project from a single prototype to fully finished and assembled products. One of the major success factors for our growth is the way people are selected, trained, organized and motivated. Customized training programs continuously help acquire knowledge & skills.</p>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
+    </div>
+  </div>
+</div>
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
+    </div>
+
+    <div class="w3-twothird">
+      <h1>About Us</h1>
+      <h5 class="w3-padding-32">All most 38 years of experience we have expanded to match global vision & progressed steadily through up gradation of technology, quality and skills. Today, we are one of the leading manufacturers of automation & control equipment in India. Pyrotech has an exceptional multi-disciplinary array of products like Panels, Enclosures, LVS, LIR/LIE, Computer Consoles, Electronic products and Office-Industrial furniture. </h5>
+
+      <p class="w3-text-grey">
+To reap advantages of Global Integrated Chain, we collaborated with companies like Synelec (LVS), Subklew (Mosaic Tile System), & Weigel Meters (Meters). In every true sense of the word, we have become, The Control Room Solutions Provider. Approved by major consultants and working with large OEMs, we are in position to cater to the needs of a Variety of industries, ranging from Power to Petrochemicals, Metering to Railways, Material Handling to Process Control, Cement to Defense and many more.</p>
+    </div>
+  </div>
+</div>
+
+</template>
